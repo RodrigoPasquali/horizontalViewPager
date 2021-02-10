@@ -1,4 +1,4 @@
-package com.viewpager;
+package com.viewpager.Utility;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,11 +10,6 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.lang.reflect.Field;
-
-
-/**
- * Created by Deepak Mishra on 10/16/2017.
- */
 
 public class VerticalViewPager extends ViewPager {
 
@@ -29,116 +24,37 @@ public class VerticalViewPager extends ViewPager {
     }
 
     private void init() {
-        // The majority of the magic happens here
-//        setPageTransformer(false, new VerticalPageTransformer());
-        // The easiest way to get rid of the overscroll drawing that happens on the left and right
-//        setOverScrollMode(OVER_SCROLL_NEVER);
-//        setOverScrollMode(0);
-//
         try {
             Class cls = this.getClass().getSuperclass();
             Field distanceField = cls.getDeclaredField("mFlingDistance");
             distanceField.setAccessible(true);
             distanceField.set(this, 10000);
-
-//            distanceField.setInt(this, distanceField.getInt(this) / 40);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
         }
-//
+
         try {
             Class cls = this.getClass().getSuperclass();
             Field minVelocityField = cls.getDeclaredField("mMinimumVelocity");
             minVelocityField.setAccessible(true);
             minVelocityField.set(this, 1);
-//            minVelocityField.setInt(this, minVelocityField.getInt(this) / 25);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-//
-//        try {
-//            Class cls = this.getClass().getSuperclass();
-//            Field maxVelocityField = cls.getDeclaredField("mMaximumVelocity");
-//            maxVelocityField.setAccessible(true);
-//            maxVelocityField.set(this, 1);
-//
-////            maxVelocityField.setInt(this, maxVelocityField.getInt(this) * 10);
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//
+
         try {
             Class cls = this.getClass().getSuperclass();
             Field slopField = cls.getDeclaredField("mTouchSlop");
             slopField.setAccessible(true);
             slopField.set(this, 1);
-//            slopField.setInt(this, slopField.getInt(this) / 10);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-//
-//        try {
-//            Class cls = this.getClass().getSuperclass();
-//            Field minHeightWidthRatioField = cls.getDeclaredField("minYXRatioForIntercept");
-//            minHeightWidthRatioField.setAccessible(true);
-//            minHeightWidthRatioField.set(this, 10000);
-////            minHeightWidthRatioField.setFloat(this, minHeightWidthRatioField.getFloat(this) * 8);
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            Class cls = this.getClass().getSuperclass();
-//            Field minHeightWidthRatioField = cls.getDeclaredField("minYXRatioForTouch");
-//            minHeightWidthRatioField.setAccessible(true);
-//            minHeightWidthRatioField.set(this, 1);
-////            minHeightWidthRatioField.setInt(this, minHeightWidthRatioField.getInt(this) * 4);
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
     }
-
-    /**
-     * Swaps the X and Y coordinates of your touch event.
-     */
-//    private MotionEvent swapXY(MotionEvent ev) {
-//        float width = getWidth();
-//        float height = getHeight();
-//
-//        float y = ev.getY();
-//        float x = ev.getX();
-//
-//        float newX = (y / height) * width;
-//        float newY = (x / width) * height;
-//
-//        ev.setLocation(newX, newY);
-//
-//        return ev;
-//    }
-
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        boolean intercepted = super.onInterceptTouchEvent(swapXY(ev));
-//        swapXY(ev); // return touch coordinates to original reference frame for any child views
-//        return intercepted;
-//    }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent ev) {
-//        return super.onTouchEvent(swapXY(ev));
-//    }
 
     private class VerticalPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.75f;
@@ -182,5 +98,4 @@ public class VerticalViewPager extends ViewPager {
 
         }
     }
-
 }
